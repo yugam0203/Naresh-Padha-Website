@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Publications — Prof. Naresh Padha</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{ --accent:#0f57b7; }
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; background: radial-gradient(circle at 10% 10%, rgba(15,87,183,0.06), transparent), linear-gradient(180deg,#f6fbff,#ffffff); color:#0f172a;}
+    .glass{background:rgba(255,255,255,0.72); backdrop-filter: blur(8px); border-radius:14px; box-shadow:0 8px 30px rgba(8,12,30,0.06); border:1px solid rgba(15,23,42,0.04);}
+    .hero{background:linear-gradient(90deg,#0f57b7,#1e3a8a); color:white;}
+    .liquid-btn{display:inline-flex;gap:.5rem;align-items:center;padding:.45rem .8rem;border-radius:999px;background:linear-gradient(90deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.06)}
+    a.toplink{color:var(--accent); text-decoration:underline;}
+    .smallmeta{font-size:0.85rem;color:#475569;}
+    .doi{font-size:0.85rem;color:#0f57b7;}
+    .paper{padding:12px;border-radius:10px;}
+    /* sticky header nav after scroll */
+    .sticky-nav{position:fixed;left:50%;transform:translateX(-50%);top:12px;opacity:0;pointer-events:none;transition:opacity .28s,transform .28s;z-index:80}
+    .sticky-nav.visible{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+    @media (max-width:768px){ .sticky-nav{left:12px;right:12px;transform:none} }
+    /* scrolling container for big list */
+    .list-scroll{max-height:68vh; overflow:auto; padding-right:8px;}
+
+/* ===== Responsive fixes for hero and sticky nav ===== */
+
+/* constrain the quick-links card inside header so it won't force overflow */
+header .glass.p-3 {
+  max-width: 420px;     /* desktop: reasonable width */
+  width: 100%;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+/* constrain the actual icon grid inside the quick card */
+header .hero-links {
+  max-width: 360px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:.45rem;
+  box-sizing:border-box;
+}
+
+/* On medium/smaller screens, allow the quick card to reflow below hero and shrink */
+@media (max-width:900px) {
+  header .glass.p-3 { max-width: 340px; padding: 10px; }
+  header { gap: 12px; padding: 18px; }
+  header .w-28 { width: 84px; height:84px; } /* avatar smaller */
+  header h1 { font-size: 1.6rem; }
+}
+
+/* Mobile: stack hero vertically, center content, make quick links full-width below hero */
+@media (max-width:640px) {
+  header { flex-direction: column; align-items: center; text-align: center; }
+  header .flex-1 { width:100%; padding: 0 8px; }
+  header .glass.p-3 { position: static !important; width: calc(100% - 20px); max-width: 880px; margin: 6px auto 0 auto; border-radius: 14px; box-shadow: none; }
+  header .hero-links { justify-content: center; max-width: 100%; }
+  header .mt-4.flex.gap-3 { justify-content: center; flex-wrap:wrap; }
+}
+
+/* Prevent horizontal overflow at very small viewports */
+@media (max-width:420px) {
+  body, html { overflow-x: hidden; }
+  header { padding-left: 12px; padding-right: 12px; }
+}
+
+/* Sticky nav: keep centered but hide on very small devices to prevent overlap */
+@media (max-width:520px) {
+  #stickyNav { display: none !important; }      /* hide sticky nav on small phones */
+}
+
+/* If you prefer to keep sticky nav visible on tiny devices, use smaller width + padding:
+@media (max-width:520px) {
+  #stickyNav { display:flex !important; width: calc(100% - 18px); left:50%; transform:translateX(-50%); padding:.28rem .4rem; }
+}
+*/
+
+/* ===============================
+   Responsive Sticky Navigation
+   =============================== */
+.glass.sticky-nav {
+  position: fixed;
+  top: 0.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 90vw;
+  transition: all 0.3s ease;
+}
+
+/* Nav links */
+.glass.sticky-nav a {
+  font-weight: 500;
+  color: #0f172a;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+.glass.sticky-nav a:hover {
+  background: rgba(15, 87, 183, 0.1);
+}
+
+/* ✅ Responsive adjustments */
+@media (max-width: 900px) {
+  .glass.sticky-nav {
+    gap: 0.5rem;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+    top: 0.6rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .glass.sticky-nav {
+    width: calc(100% - 1.2rem);
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 12px;
+    padding: 0.45rem 0.5rem;
+    font-size: 0.88rem;
+    justify-content: space-evenly;
+  }
+  .glass.sticky-nav a {
+    flex: 1;
+    text-align: center;
+    padding: 0.4rem 0;
+  }
+}
+
+/* Optional: hide sticky nav on ultra-small screens if needed */
+@media (max-width: 400px) {
+  .glass.sticky-nav {
+    width: 95%;
+    font-size: 0.82rem;
+  }
+}
+</style>
+
+  
+</head>
+<body class="min-h-screen">
+
+  <!-- Sticky nav (hidden until scroll) -->
+  <nav id="stickyNav" class="glass sticky-nav px-4 py-2 flex gap-3 items-center justify-center">
+    <a href="index.html" class="text-sm px-3 py-1">Home</a>
+    <a href="index.html#publications" class="text-sm px-3 py-1">Summary</a>
+    <a href="#top" class="text-sm px-3 py-1">Top</a>
+  </nav>
+
+  <!-- Hero -->
+  <header id="top" class="hero py-12">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <h1 class="text-2xl md:text-3xl font-extrabold">Publications — Prof. Naresh Padha</h1>
+      <p class="mt-2 text-slate-100 text-sm md:text-base">Complete publications archive.</p>
+
+      <div class="mt-4 flex justify-center gap-3 flex-wrap">
+        <a class="liquid-btn" href="index.html">Home</a>
+       <a class="liquid-btn" href="https://scholar.google.com/citations?user=Dbmlsi0AAAAJ&hl=en" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar">
+                  <!-- scholar cap (generic) -->
+                  <span class="text-xs">Google Scholar</span>
+                </a><a class="liquid-btn" href="https://orcid.org/0000-0003-1980-823X" target="_blank" rel="noopener noreferrer" aria-label="ORCID">
+                  <!-- ORCID-style circle -->
+                  <span class="text-xs">ORCID</span>
+                </a>
+    </div>
+  </header>
+
+  <!-- Intro + Top 5 -->
+  <main class="max-w-5xl mx-auto p-6 space-y-6">
+    <section class="glass p-6">
+      <h2 class="text-xl font-semibold">Overview & Top 5 (Overall Impact)</h2>
+      <p class="smallmeta mt-2">Prof. Naresh Padha — 84 peer-reviewed publications, 1 book, and 2 book chapters. Below are five high-impact works highlighted for visibility; the full list follows (newest → oldest).</p>
+
+      <div class="mt-4 grid md:grid-cols-2 gap-4">
+        <div class="paper glass p-3">
+          <strong>Ultrasensitive NO₂ gas detection using ALD-grown ZnO–SiO₂/Si thin film-based UV sensors</strong><br>
+          <span class="smallmeta">Journal of Alloys and Compounds — 2025</span><br>
+          <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1016/j.jallcom.2024.177673" target="_blank">10.1016/j.jallcom.2024.177673</a></span>
+        </div>
+        <div class="paper glass p-3">
+          <strong>SnₓSᵧ MSELD stack thin films: Processing, characteristics and devices for photonic applications</strong><br>
+          <span class="smallmeta">Solar Energy — 2020</span><br>
+          <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1016/j.solener.2020.10.005" target="_blank">10.1016/j.solener.2020.10.005</a></span>
+        </div>
+
+        <div class="paper glass p-3">
+          <strong>Impact of annealing on growth dynamics of indium sulphide buffer layers</strong><br>
+          <span class="smallmeta">Journal of Materials Research & Technology — 2022</span><br>
+          <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1016/j.jmrt.2022.09.094" target="_blank">10.1016/j.jmrt.2022.09.094</a></span>
+        </div>
+        <div class="paper glass p-3">
+          <strong>Optimized ALD-ZnO thin films for high-performance 12 μm pixel microbolometers</strong><br>
+          <span class="smallmeta">ACS Applied Electronic Materials — 2025</span><br>
+          <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1021/acsaelm.5c01235" target="_blank">10.1021/acsaelm.5c01235</a></span>
+        </div>
+
+        <div class="paper glass p-3 md:col-span-2">
+          <strong>Growth of γ-In₂Se₃ monolayer from multifaceted InₓSeᵧ thin films via annealing</strong><br>
+          <span class="smallmeta">Materials Chemistry & Physics — 2021</span><br>
+          <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1016/j.matchemphys.2020.123823" target="_blank">10.1016/j.matchemphys.2020.123823</a></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Full list: newest -> oldest -->
+    <section class="glass p-6">
+      <h2 class="text-lg font-semibold">Complete Publications (Newest → Oldest)</h2>
+      <div class="mt-3 smallmeta">Full list of 84 publications — details include DOI, journal, authors and indexing where available. Scrollable for convenience.</div>
+
+      <div class="mt-4 list-scroll">
+      
+          <!-- 1 -->
+          <li>
+            <strong>Optimized ALD-ZnO thin films for high-performance 12 μm pixel microbolometers: fabrication, simulation, and design strategies for infrared sensing.</strong><br>
+            <span class="smallmeta">ACS Applied Electronic Materials — Sep. 2025</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1021/acsaelm.5c01235" target="_blank">10.1021/acsaelm.5c01235</a></span><br>
+            <span class="smallmeta">Authors: Bhavya Padha, Zahoor Ahmed, Naresh Padha, Devendra Singh Rawal, Isha Yadav, Sandeep Arya. Indexed: SCOPUS, SCIE. IF: 4.7.</span>
+          </li>
+
+          <!-- 2 -->
+          <li>
+            <strong>Transient response of low-temperature ALD-grown ZnO thin film-based p-i-n UV detector.</strong><br>
+            <span class="smallmeta">Optical Materials — June 2025</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1016/j.optmat.2025.117264" target="_blank">10.1016/j.optmat.2025.117264</a></span><br>
+            <span class="smallmeta">Authors: Bhavya Padha, Zahoor Ahmed, Shankar Dutta, Akhilesh Pandey, Naresh Padha, Isha Yadav, Sandeep Arya. Indexed: SCOPUS, SCIE. IF: 4.2.</span>
+          </li>
+
+          <!-- 3 -->
+          <li>
+            <strong>Dynamics of ALD grown ZnO thin films with varying thicknesses and substrate temperatures for optoelectronic applications.</strong><br>
+            <span class="smallmeta">Optical and Quantum Electronics — May 2025</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1007/s11082-025-08255-4" target="_blank">10.1007/s11082-025-08255-4</a></span><br>
+            <span class="smallmeta">Authors: Zahoor Ahmed, Naresh Padha, Bhavya Padha, Zakir Hussain, Dimple Singh. Indexed: SCOPUS, SCIE. IF: 4.0.</span>
+          </li>
+
+          <!-- 4 -->
+          <li>
+            <strong>Temperature dependent growth and characterizations of Cu(In1-xGax)Se2 thin films for photovoltaic applications.</strong><br>
+            <span class="smallmeta">Journal of Materials Science: Materials in Electronics — March 2025</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1007/s10854-025-14817-9" target="_blank">10.1007/s10854-025-14817-9</a></span><br>
+            <span class="smallmeta">Authors: Shafiq Ahmed, Naresh Padha, Zakir Hussain, Shammi Kumar, Zahoor Ahmed, Dimple Singh. Indexed: SCOPUS, Web of Science (SCIE). IF: 2.8.</span>
+          </li>
+
+          <!-- 5 -->
+          <li>
+            <strong>Growth of nanostructured ZnTe thin films through annealing of the MSELD-prepared stack of precursors for photonic applications.</strong><br>
+            <span class="smallmeta">Chemical Physics Impact — January 2025</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1016/j.chphi.2025.100837" target="_blank">10.1016/j.chphi.2025.100837</a></span><br>
+            <span class="smallmeta">Authors: Dimple Singh, Naresh Padha, Zakir Hussain, Zahoor Ahmed, Padma Dolma. Indexed: SCOPUS/ESCI. IF: 4.3.</span>
+          </li>
+
+          <!-- 6 -->
+          <li>
+            <strong>Ultrasensitive NO₂ gas detection using ALD-grown ZnO–SiO₂/Si thin film-based UV sensors.</strong><br>
+            <span class="smallmeta">Journal of Alloys and Compounds — November 2024</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1016/j.jallcom.2024.177673" target="_blank">10.1016/j.jallcom.2024.177673</a></span><br>
+            <span class="smallmeta">Authors: Bhavya Padha, Zahoor Ahmed, Shankar Dutta, Akhilesh Pandey, Naresh Padha, Monika Tomar, Anjali Sharma, Isha Yadav, Sandeep Arya. IF: 6.4.</span>
+          </li>
+
+          <!-- 7 -->
+          <li>
+            <strong>Development of nanostructured Cu₃SnS₄ thin films through annealing of the stack of precursors for photonic applications.</strong><br>
+            <span class="smallmeta">Optical and Quantum Electronics — November 2024</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1007/s11082-024-07709-5" target="_blank">10.1007/s11082-024-07709-5</a></span><br>
+            <span class="smallmeta">Authors: Zakir Hussain, Naresh Padha, Arun Banotra. IF: 4.0.</span>
+          </li>
+
+          <!-- 8 -->
+          <li>
+            <strong>Effect of change in substrate temperature, layer thickness on the behaviour of n-CdS thin films and formation of their diodes and photovoltaic cell.</strong><br>
+            <span class="smallmeta">Thin Solid Films — August 2024</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1016/j.tsf.2024.140459" target="_blank">10.1016/j.tsf.2024.140459</a></span><br>
+            <span class="smallmeta">Authors: Padma Dolma, Naresh Padha, Arun Banotra, Rajesh Niranjan, Zakir Hussain. IF: 2.0.</span>
+          </li>
+
+          <!-- 9 -->
+          <li>
+            <strong>Growth of nano-polycrystalline CuIn₁₋ₓAlₓSe₂ thin films and photovoltaic cell formation.</strong><br>
+            <span class="smallmeta">Results in Surfaces and Interfaces — January 2024</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1016/j.rsurfi.2024.100186" target="_blank">10.1016/j.rsurfi.2024.100186</a></span><br>
+            <span class="smallmeta">Authors: Rajesh Niranjan & Naresh Padha. IF: 4.4.</span>
+          </li>
+
+          <!-- 10 -->
+          <li>
+            <strong>Processing of nanocrystalline thin films of selenium and formation of FTO/p-Se/n-CdS/In heterojunctions for photovoltaic response.</strong><br>
+            <span class="smallmeta">Results in Optics — September 2023</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1016/j.rio.2023.100533" target="_blank">10.1016/j.rio.2023.100533</a></span><br>
+            <span class="smallmeta">Authors: Rajesh Niranjan & Naresh Padha. IF: 3.0.</span>
+          </li>
+
+          <!-- 11 -->
+          <li>
+            <strong>A Two-step Method to Grow ZnSe Thin Films and To Study Their Characteristics.</strong><br>
+            <span class="smallmeta">Indian Journal of Pure & Applied Physics — Sep 2023</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi:10.56042/ijpap.v61i9.3209" target="_blank">10.56042/ijpap.v61i9.3209</a></span><br>
+            <span class="smallmeta">Authors: Zakir Hussain, Naresh Padha, Shafiq Ahmad, Padma Dolma. IF: 0.846.</span>
+          </li>
+
+          <!-- 12 -->
+          <li>
+            <strong>Effect of substrate and annealing temperature on the physical properties of the thin films of SnSe₂–SnSe alloy.</strong><br>
+            <span class="smallmeta">Optical Materials — Dec 2022</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1016/j.optmat.2022.113078" target="_blank">10.1016/j.optmat.2022.113078</a></span><br>
+            <span class="smallmeta">Authors: Shammi Kumar, Arun Banotra, Naresh Padha, Shafiq Ahmed. IF: 3.8.</span>
+          </li>
+
+          <!-- 13 -->
+          <li>
+            <strong>Impact of annealing on the growth dynamics of indium sulphide buffer layers.</strong><br>
+            <span class="smallmeta">Journal of Materials Research & Technology — Sep 2022</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1016/j.jmrt.2022.09.094" target="_blank">10.1016/j.jmrt.2022.09.094</a></span><br>
+            <span class="smallmeta">Authors: Shafiq Ahmed, Naresh Padha, Arun Banotra, Ajit Khosla. IF: 6.4.</span>
+          </li>
+
+          <!-- 14 -->
+          <li>
+            <strong>Sequentially evaporated layer deposition stack of CuxS thin films for photonics applications.</strong><br>
+            <span class="smallmeta">Journal of Materials Research & Technology — Aug 2022</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1016/j.jmrt.2022.08.097" target="_blank">10.1016/j.jmrt.2022.08.097</a></span><br>
+            <span class="smallmeta">Authors: Padma Dolma, Arun Banotra, Naresh Padha, Ajit Khosla. IF: 6.4.</span>
+          </li>
+
+          <!-- 15 -->
+          <li>
+            <strong>Growth Dynamics of SnSe Thin Films on Annealing of Precursor Layers Stacked by Multisource Sequential Elemental Layer Deposition</strong><br>
+            <span class="smallmeta">Integrated Ferroelectrics — June 2022</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1080/10584587.2022.2102805" target="_blank">10.1080/10584587.2022.2102805</a></span><br>
+            <span class="smallmeta">Authors: Arun Banotra, Naresh Padha. IF: 0.7.</span>
+          </li>
+
+          <!-- 16 -->
+          <li>
+            <strong>Organic coordinated SnS and SnS₁₋ₓSeₓ crystals: synthesis, characteristics and optical behaviour for photonic applications.</strong><br>
+            <span class="smallmeta">Optical and Quantum Electronics — May 2022</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1007/s11082-022-03739-z" target="_blank">10.1007/s11082-022-03739-z</a></span><br>
+            <span class="smallmeta">Authors: Arun Banotra & Naresh Padha. IF: 3.0.</span>
+          </li>
+
+          <!-- 17 -->
+          <li>
+            <strong>A two step method to obtain the 2D layers of SnSe₂ single phase and study its physical characteristics for photovoltaic and photo converter devices.</strong><br>
+            <span class="smallmeta">Applied Physics A — Oct 2021</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1007/s00339-021-04992-x" target="_blank">10.1007/s00339-021-04992-x</a></span><br>
+            <span class="smallmeta">Authors: Naresh Padha & Shammi Kumar. IF: 2.7.</span>
+          </li>
+
+          <!-- 18 -->
+          <li>
+            <strong>MSELD SnS₁₋ₓSeₓ alloy thin films towards efficient structural and bandgap engineering for photonic devices.</strong><br>
+            <span class="smallmeta">Journal of Materials Research — Sep 2021</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1557/s43578-021-00394-0" target="_blank">10.1557/s43578-021-00394-0</a></span><br>
+            <span class="smallmeta">Authors: Arun Banotra & Naresh Padha. IF: 2.7.</span>
+          </li>
+
+          <!-- 19 -->
+          <li>
+            <strong>Growth of γ-In₂Se₃ monolayer from multifaceted InₓSeᵧ thin films via annealing and study of its physical properties.</strong><br>
+            <span class="smallmeta">Materials Chemistry & Physics — Sep 2021</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1016/j.matchemphys.2020.123823" target="_blank">10.1016/j.matchemphys.2020.123823</a></span><br>
+            <span class="smallmeta">Authors: Rajesh Niranjan & Naresh Padha. IF: 4.6.</span>
+          </li>
+
+          <!-- 20 -->
+          <li>
+            <strong>SnₓSᵧ MSELD stack thin films: Processing, characteristics and devices for photonic applications.</strong><br>
+            <span class="smallmeta">Solar Energy — Oct 2020</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1016/j.solener.2020.10.005" target="_blank">10.1016/j.solener.2020.10.005</a></span><br>
+            <span class="smallmeta">Authors: Arun Banotra & Naresh Padha. IF: 6.7.</span>
+          </li>
+
+          <!-- 21 -->
+          <li>
+            <strong>Effect of CuIn₁₋ₓAlₓSe₂ (CIAS) thin film thickness and diode annealing temperature on Al/p-CIAS Schottky diode.</strong><br>
+            <span class="smallmeta">Bulletin of Materials Science — Oct 2020</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1007/s12034-020-02245-w" target="_blank">10.1007/s12034-020-02245-w</a></span><br>
+            <span class="smallmeta">Authors: Usha Parihar, Jaymin Ray, C J Panchal & Naresh Padha. IF: 1.8.</span>
+          </li>
+
+          <!-- 22 -->
+          <li>
+            <strong>Development of CuInSe₂ thin films by SELD method for photovoltaic absorber layer application.</strong><br>
+            <span class="smallmeta">Journal of Materials Science: Materials in Electronics — Jan 2020</span><br>
+            <span class="smallmeta">Authors: Rajesh Niranjan, Arun Banotra & Naresh Padha. IF: 2.8.</span>
+          </li>
+
+          <!-- 23 -->
+          <li>
+            <strong>Development of SnS nanocrystals and tuning of parameters for use as spectral selective photoabsorbers.</strong><br>
+            <span class="smallmeta">Journal of Crystal Growth — Jan 2020</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1016/j.jcrysgro.2019.125460" target="_blank">10.1016/j.jcrysgro.2019.125460</a></span><br>
+            <span class="smallmeta">Authors: Arun Banotra & Naresh Padha. IF: 1.8.</span>
+          </li>
+
+          <!-- 24 -->
+          <li>
+            <strong>Facile growth of SnS and SnS₀.₄Se₀.₆ thin films as an absorber layer in the solar cell structure.</strong><br>
+            <span class="smallmeta">Materials Today: Proceedings — Dec 2019</span><br>
+            <span class="smallmeta">Authors: Arun Banotra & Naresh Padha. IF: 3.2.</span>
+          </li>
+
+          <!-- 25 -->
+          <li>
+            <strong>SnTeₓSe₁₋ₓ alloy: An effective alternate to SnSe nanocrystalline thin films for optoelectronic applications.</strong><br>
+            <span class="smallmeta">Journal of Electronic Materials — Apr 2019</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1007/s11664-019-07202-w" target="_blank">10.1007/s11664-019-07202-w</a></span><br>
+            <span class="smallmeta">Authors: Anjali Devi, Arun Banotra, Shiv Kumar, Ashok K. Kapoor, Naresh Padha. IF: 2.1.</span>
+          </li>
+
+          <!-- 26 -->
+          <li>
+            <strong>Development of SnS₀.₄Se₀.₆ Ternary Alloy on Annealing of Thermally Deposited Films.</strong><br>
+            <span class="smallmeta">Journal of Electronic Materials — Oct 2019</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1007/s11664-018-6710-y" target="_blank">10.1007/s11664-018-6710-y</a></span><br>
+            <span class="smallmeta">Authors: Arun Banotra & Naresh Padha. IF: 2.1.</span>
+          </li>
+
+          <!-- 27 -->
+          <li>
+            <strong>Impact of additional sulphur on structure, morphology and optical properties of SnS thin films by thermal evaporation.</strong><br>
+            <span class="smallmeta">AIP Conference Proceedings — May 2018</span><br>
+            <span class="smallmeta">Authors: Arun Banotra, Naresh Padha, Shiv Kumar, Ashok K. Kapoor.</span>
+          </li>
+
+          <!-- 28 -->
+          <li>
+            <strong>Structural and optical properties of tin disulphide thin films grown by flash evaporation.</strong><br>
+            <span class="smallmeta">AIP Conference Proceedings — Apr 2018</span><br>
+            <span class="smallmeta">Authors: Arun Banotra & Naresh Padha.</span>
+          </li>
+
+          <!-- 29 -->
+          <li>
+            <strong>Effect of substrate temperature on the characteristics of mixed phase SnTeₓSe₁₋ₓ (x = 0.32) thin films.</strong><br>
+            <span class="smallmeta">Materials Research Express — Nov 2017</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1088/2053-1591/aa98b0" target="_blank">10.1088/2053-1591/aa98b0</a></span><br>
+            <span class="smallmeta">Authors: Naresh Padha, Anjali Devi, Arun Banotra, Shiv Kumar, Ashok Kumar Kapoor. IF: 2.3.</span>
+          </li>
+
+          <!-- 30 -->
+          <li>
+            <strong>Effect of annealing on physical characteristics of the vacuum evaporated mixed phase SnₓSᵧ thin films.</strong><br>
+            <span class="smallmeta">Materials Research Express — Nov 2017</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1088/2053-1591/aa982e" target="_blank">10.1088/2053-1591/aa982e</a></span><br>
+            <span class="smallmeta">Authors: Arun Banotra & Naresh Padha. IF: 2.3.</span>
+          </li>
+
+          <!-- 31 -->
+          <li>
+            <strong>Potential of Sm³⁺ doped LiSrVO₄ nanophosphor to fill amber gap in LEDs.</strong><br>
+            <span class="smallmeta">Physica B — July 2017</span><br>
+            <span class="smallmeta">Authors: P. Biswas, Vinay Kumar, Vishal Sharma, A.K. Bedyal, Naresh Padha, H.C. Swart. IF: 2.8.</span>
+          </li>
+
+          <!-- 32 -->
+          <li>
+            <strong>Synthesis, structural and luminescence studies of LiSrVO₄:Sm³⁺ nanophosphor to fill amber gap in LEDs under n-UV excitation.</strong><br>
+            <span class="smallmeta">Journal of Materials Science: Materials in Electronics — Jan 2017</span><br>
+            <span class="smallmeta">Authors: P. Biswas, Vinay Kumar, Naresh Padha, H.C. Swart. IF: 2.8.</span>
+          </li>
+
+          <!-- 33 -->
+          <li>
+            <strong>Influence of temperature on Al/p-CuInAlSe₂ thin-film Schottky diodes.</strong><br>
+            <span class="smallmeta">Applied Physics A — May 2016</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1007/s00339-016-0105-9" target="_blank">10.1007/s00339-016-0105-9</a></span><br>
+            <span class="smallmeta">Authors: Usha Parihar, Jaymin Ray, C. J. Panchal, Naresh Padha. IF: 2.7.</span>
+          </li>
+
+          <!-- 34 -->
+          <li>
+            <strong>Synthesis and crystal structure of [chlorobis(triphenylphosphino)(p-chlorobenzaldehyde thiosemicarbazone)] copper(I) complex.</strong><br>
+            <span class="smallmeta">Journal of Chemical Sciences — Jan 2016</span><br>
+            <span class="smallmeta">Authors: Ashiq Khan, Poonam Sharma, Rajnikant, Vivek K. Gupta, Naresh Padha, Rekha Sharma. IF: 1.7.</span>
+          </li>
+
+          <!-- 35 -->
+          <li>
+            <strong>Growth and Characterization of Tin Diselenide Telluride (SnSe₂Te) Thin Films.</strong><br>
+            <span class="smallmeta">Invertis Journal of Renewable Energy — 2014</span><br>
+            <span class="smallmeta">Authors: (ResearchGate entry). IF: N/A.</span>
+          </li>
+
+          <!-- 36 -->
+          <li>
+            <strong>Fabrication and Characterization of SnSeTe Thin Films and their Schottky diodes.</strong><br>
+            <span class="smallmeta">Invertis Journal of Science and Technology — 2014</span><br>
+            <span class="smallmeta">Authors: (Invertis University). IF: N/A.</span>
+          </li>
+
+          <!-- 37 -->
+          <li>
+            <strong>Influence of Substrate Temperature on Structural, Optical, and Electrical Properties of Flash Evaporated CuIn₀.₈₁Al₀.₁₉Se₂ Thin Films.</strong><br>
+            <span class="smallmeta">Materials Chemistry & Physics — Apr 2013</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1016/j.matchemphys.2013.01.034" target="_blank">10.1016/j.matchemphys.2013.01.034</a></span><br>
+            <span class="smallmeta">Authors: Usha Parihar, K. Sreenivas, J.R. Ray, C.J. Panchal, N. Padha, Bharati Rehani. IF: 4.6.</span>
+          </li>
+
+          <!-- 38 -->
+          <li>
+            <strong>Fabrication and Characterisation of Al/p-CuInAlSe₂ thin Film Schottky Diodes.</strong><br>
+            <span class="smallmeta">Journal of Nano-Electronic Physics — May 2013</span><br>
+            <span class="smallmeta">Authors: Usha Parihar, N. Padha, C. J. Panchal.</span>
+          </li>
+
+          <!-- 39 -->
+          <li>
+            <strong>Effect of Film Thickness and Annealing on the Structural and Optical Properties of CuInAlSe₂ Thin Films.</strong><br>
+            <span class="smallmeta">Proceedings — 2013</span><br>
+            <span class="smallmeta">Authors: U. Parihar, N. Padha, J.R. Ray, M.S. Desai, C.J. Panchal, P.K. Mehta.</span>
+          </li>
+
+          <!-- 40 -->
+          <li>
+            <strong>Effect of Film Thickness on Optical Properties of Tin Selenide Thin Films Prepared by Thermal Evaporation for Photovoltaic Applications.</strong><br>
+            <span class="smallmeta">American Journal of Materials Science — Feb 2012</span><br>
+            <span class="smallmeta">Authors: (see CV). IF: 0.765.</span>
+          </li>
+
+          <!-- 41 -->
+          <li>
+            <strong>Growth, Structural and Optical Properties of the Thermally Evaporated Tin Diselenide (SnSe₂) Thin Films.</strong><br>
+            <span class="smallmeta">Journal of Nano-Electronic Physics — Jun 2011</span><br>
+            <span class="smallmeta">Authors: R. Sachdeva, M. Sharma, A. Devi, U. Parihar, N. Kumar, N. Padha*, C.J. Panchal.</span>
+          </li>
+
+          <!-- 42 -->
+          <li>
+            <strong>Structural, optical and electrical characterization of Tin Selenide thin films deposited at room temperature using thermal evaporation method.</strong><br>
+            <span class="smallmeta">Journal of Nano-Electronic Physics — Jan 2011</span><br>
+            <span class="smallmeta">Authors: N. Kumar, V. Sharma, Usha Parihar, Ramesh Sachdeva, Naresh Padha, Chetan Panchal.</span>
+          </li>
+
+          <!-- 43 -->
+          <li>
+            <strong>Impact of annealing on CuInSe₂ thin films and its Schottky interface.</strong><br>
+            <span class="smallmeta">Journal of Nano-Electronic Physics — Jan 2011</span><br>
+            <span class="smallmeta">Authors: U. Parihar, J. R. Ray, N. Kumar, R. Sachdeva, N. Padha, C. J. Panchal.</span>
+          </li>
+
+          <!-- 44 -->
+          <li>
+            <strong>Barrier inhomogeneities of Al/p-In₂Te₃ thin film Schottky diodes.</strong><br>
+            <span class="smallmeta">Journal of Nano-Electronic Physics — Nov 2011</span><br>
+            <span class="smallmeta">Authors: R. R. Desai, D. Lakshminarayana, R. Sachdeva, P. B. Patel, C. J. Panchal, M. S. Desai, N. Padha.</span>
+          </li>
+
+          <!-- 45 -->
+          <li>
+            <strong>Current transport behaviour of Au/n-GaAs Schottky diodes grown on Ge substrate with different epitaxial layer thickness over a wide temperature range.</strong><br>
+            <span class="smallmeta">Journal of Nano-Electronic Physics — Feb 2011</span><br>
+            <span class="smallmeta">Authors: N. Padha, R. Sachdeva, R. Sihotra, S.B. Krupanidhi.</span>
+          </li>
+
+          <!-- 46 -->
+          <li>
+            <strong>A Novel Trench-Gate Floating Islands (FLI) Power MOSFET (TG-FLIMOSFET): A Two-Dimensional Simulation Study.</strong><br>
+            <span class="smallmeta">Microelectronic Engineering — Nov 2011</span><br>
+            <span class="smallmeta">Authors: Rakesh Vaid, Naresh Padha. IF: 2.3.</span>
+          </li>
+
+          <!-- 47 -->
+          <li>
+            <strong>ChemInform Abstract: Anomalin. A Dihydropyanocoumarin Derivative from the Plant Lingusticum elatumd.</strong><br>
+            <span class="smallmeta">Cheminfo (Wiley) — Apr 2010</span><br>
+            <span class="smallmeta">Authors: N. Padha, K. N. Goswami, V. S. Yadava, M. Nethaji.</span>
+          </li>
+
+          <!-- 48 -->
+          <li>
+            <strong>Influence of the substrate temperature on the structural, optical and electrical properties of tin selenide thin films deposited by thermal evaporation method.</strong><br>
+            <span class="smallmeta">Cryst. Res. Technol. — Jan 2010</span><br>
+            <span class="smallmeta">Authors: N. Kumar, V. Sharma, N. Padha, N. M. Shah, M. S. Desai, C. J. Panchal, I. Yu. Protsenko. IF: 1.5.</span>
+          </li>
+
+          <!-- 49 -->
+          <li>
+            <strong>Optical and Electrical Properties of the Copper Indium Aluminium Diselenide (CIAS) Thin Films for thin film solar cell application.</strong><br>
+            <span class="smallmeta">Photovoltaic Technical Conference — 2010</span><br>
+            <span class="smallmeta">Authors: Chetan Panchal, Naresh Padha.</span>
+          </li>
+
+          <!-- 50 -->
+          <li>
+            <strong>Study of forward I–V characteristics of some Schottky Diodes with varying doping concentrations over a wide temperature range.</strong><br>
+            <span class="smallmeta">XVth International Workshop on Physics of Semiconductor Devices (IWPSD-2009) — 2009</span><br>
+            <span class="smallmeta">Authors: Naresh Padha et al.</span>
+          </li>
+
+          <!-- 51 -->
+          <li>
+            <strong>Anomalous Electrical Transport at Non-Ideal Au/Epitaxial n-GaAs Schottky Junctions on n⁺-Ge Substrates at Low Temperatures.</strong><br>
+            <span class="smallmeta">The African Review of Physics — 2009</span><br>
+            <span class="smallmeta">Authors: Shyam Hardikar, M.K. Hudait, P. Modak, Saluru B Krupanidhi, Naresh Padha.</span>
+          </li>
+
+          <!-- 52 -->
+          <li>
+            <strong>Barrier inhomogeneities in Au/CdSe thin film Schottky diodes.</strong><br>
+            <span class="smallmeta">Semicond. Sci. Technol. — Dec 2008</span><br>
+            <span class="doi">DOI: <a class="toplink" href="https://doi.org/10.1088/0268-1242/23/1/015003" target="_blank">10.1088/0268-1242/23/1/015003</a></span><br>
+            <span class="smallmeta">Authors: C.J. Panchal, M.S Desai, V.A. Kheraj, K.J. Patel, N. Padha. IF: 1.9.</span>
+          </li>
+
+          <!-- 53 -->
+          <li>
+            <strong>A Novel CMOS Compatible LDMOS for Automotive Applications.</strong><br>
+            <span class="smallmeta">Int. Journal of Active and Passive Electronic Devices (JAPED-USA) — 2008</span><br>
+            <span class="smallmeta">Authors: Rakesh Vaid, Naresh Padha.</span>
+          </li>
+
+          <!-- 54 -->
+          <li>
+            <strong>Novel FLI/ODBR based LDMOSFET: A 2-D Simulation study.</strong><br>
+            <span class="smallmeta">Proc. IWPSD-2007 (IEEE) — Mar 2008</span><br>
+            <span class="smallmeta">Authors: Rakesh Vaid, Asgar Hussain, Amit Trikha, Sanjeeva Bhushan, Jaspreet Singh, Roshan Lal, Naresh Padha.</span>
+          </li>
+
+          <!-- 55 -->
+          <li>
+            <strong>Factors Limiting the Device Performance in Power FLIMOSFET: 2-D Simulation Study.</strong><br>
+            <span class="smallmeta">ICEE — Aug 2007</span><br>
+            <span class="smallmeta">Authors: Rakesh Vaid, Naresh Padha.</span>
+          </li>
+
+          <!-- 56 -->
+          <li>
+            <strong>Process Flow Mechanism for a Novel Trench Gate FLIMOSFET.</strong><br>
+            <span class="smallmeta">The African Review of Physics — 2009 (Proc. paper)</span><br>
+            <span class="smallmeta">Authors: R. Vaid, R. Gupta, N. Padha.</span>
+          </li>
+
+          <!-- 57 -->
+          <li>
+            <strong>Numerical Analysis of a Trench Gate FLIMOSFET with No Quasi-Saturation, Improved Specific On-Resistance and Better Synchronous Rectifying Characteristics.</strong><br>
+            <span class="smallmeta">Proc. IEEE MIEL-2006 — 2006</span><br>
+            <span class="smallmeta">Authors: Rakesh Vaid, Naresh Padha.</span>
+          </li>
+
+          <!-- 58 -->
+          <li>
+            <strong>Investigation of a power FLIMOSFET based on two-dimensional numerical simulations.</strong><br>
+            <span class="smallmeta">Indian Journal of Engineering and Material Sciences — 2006</span><br>
+            <span class="smallmeta">Authors: Rakesh Vaid, Naresh Padha. IF: 0.9.</span>
+          </li>
+
+          <!-- 59 -->
+          <li>
+            <strong>Degradation factors on the device performance in power FLIMOSFET.</strong><br>
+            <span class="smallmeta">Proc. 2nd Science Congress (University of Kashmir) — 2006</span>
+          </li>
+
+          <!-- 60 -->
+          <li>
+            <strong>A Novel Trench Gate FLIMOSFET with no Quasi-Saturation and Low On-Resistance.</strong><br>
+            <span class="smallmeta">Conference on Electronic & Photonic Materials and Devices (EPMDS-2006) — 2006</span>
+          </li>
+
+          <!-- 61 -->
+          <li>
+            <strong>Optimization of Trench Geometry for a Power TG-FLIMOSFET.</strong><br>
+            <span class="smallmeta">NCETET-2006 — 2006</span>
+          </li>
+
+          <!-- 62 -->
+          <li>
+            <strong>A Power MOSFET with vertical floating islands: 2D Simulation Study.</strong><br>
+            <span class="smallmeta">Int. Conference on VLSI design & Embedded Systems — 2005</span>
+          </li>
+
+          <!-- 63 -->
+          <li>
+            <strong>Comparative study of Power MOSFET device structures.</strong><br>
+            <span class="smallmeta">Indian Journal of Pure and Applied Physics — 2005</span>
+          </li>
+
+          <!-- 64 -->
+          <li>
+            <strong>Novel power VDMOSFET structure with vertical floating islands and trench gate.</strong><br>
+            <span class="smallmeta">Indian Journal of Pure & Applied Physics / NOPR handle — 2005</span>
+          </li>
+
+          <!-- 65 -->
+          <li>
+            <strong>A novel CMOS compatible LDMOS based on (FLI) & (ODBR) MOSFET concept.</strong><br>
+            <span class="smallmeta">Proc. IWPSD-2005 — 2005</span>
+          </li>
+
+          <!-- 66 -->
+          <li>
+            <strong>Floating islands dependence on the power performance in power FLIMOSFET: 2-D simulation study.</strong><br>
+            <span class="smallmeta">National conference G.D.C Bemina, Srinagar — 2005</span>
+          </li>
+
+          <!-- 67 -->
+          <li>
+            <strong>The effect of drift region doping in power VDMOSFETs with vertical floating islands (FLIMOSFET).</strong><br>
+            <span class="smallmeta">Modern trends in electronics & communication systems (MTECS-2005) — 2005</span>
+          </li>
+
+          <!-- 68 -->
+          <li>
+            <strong>Modelling power VDMOSFET Transistors: Device physics and Equivalent circuit model with parameter extraction.</strong><br>
+            <span class="smallmeta">Indian Journal of Pure and Applied Physics — 2004</span>
+          </li>
+
+          <!-- 69 -->
+          <li>
+            <strong>Styrene Acrylonitrile (SAN) Polymeric Waveguides.</strong><br>
+            <span class="smallmeta">Optics & Laser Technology — 2003</span><br>
+            <span class="smallmeta">DOI reference in CV. IF: ~5.0.</span>
+          </li>
+
+          <!-- 70 -->
+          <li>
+            <strong>Study of dark and photoconductivity of Sb-doped CuInSe₂ thin films.</strong><br>
+            <span class="smallmeta">Indian Journal of Pure and Applied Physics — 2003</span>
+          </li>
+
+          <!-- 71 -->
+          <li>
+            <strong>Electrical transport characteristics of Au/n-GaAs Schottky barrier diodes on N⁺ Ge Substrate for I–V–T Measurements.</strong><br>
+            <span class="smallmeta">Proc. Advances in Ferro-electronics and Dielectrics — 2003</span>
+          </li>
+
+          <!-- 72 -->
+          <li>
+            <strong>Current–Voltage characteristics of highly doped Au/n-GaAs Schottky diodes in a wide temperature range.</strong><br>
+            <span class="smallmeta">Proc. Advances in Ferro-electronics and Dielectrics — 2003</span>
+          </li>
+
+          <!-- 73 -->
+          <li>
+            <strong>Effect of Sb-doping on dark and photoconductivity of CuInSe₂ thin films.</strong><br>
+            <span class="smallmeta">Proc. PV in Europe — Oct 2002</span>
+          </li>
+
+          <!-- 74 -->
+          <li>
+            <strong>Effect of interfacial layer on the forward current–voltage characteristics of Au/n-Si and Ni/n-Si Schottky Diodes.</strong><br>
+            <span class="smallmeta">Proc. XI-International Workshop on The Physics of Semiconductor Devices (IWPSD) — 2001</span>
+          </li>
+
+          <!-- 75 -->
+          <li>
+            <strong>Effect of barrier inhomogeneities on heavily doped Au/n-GaAs Schottky Diodes.</strong><br>
+            <span class="smallmeta">Proc. XI-IWPSD — 2001</span>
+          </li>
+
+          <!-- 76 -->
+          <li>
+            <strong>Ageing and annealing effect in polystyrene waveguides.</strong><br>
+            <span class="smallmeta">BBOFCT — 2001</span>
+          </li>
+
+          <!-- 77 -->
+          <li>
+            <strong>Anomalous current transport in Au/low-doped n-GaAs Schottky Barrier Diodes at low Temperatures.</strong><br>
+            <span class="smallmeta">Applied Physics A — Jan 1999</span><br>
+            <span class="smallmeta">DOI: 10.1007/s003390050852</span>
+          </li>
+
+          <!-- 78 -->
+          <li>
+            <strong>Quantum Hall Effect and its importance — Characterization of semiconducting materials and Device applications.</strong><br>
+            <span class="smallmeta">Proceedings — 1998</span>
+          </li>
+
+          <!-- 79 -->
+          <li>
+            <strong>Anomalin: A Dihydropyrano coumarin derivative from the plant Linusticum Elatum.</strong><br>
+            <span class="smallmeta">Acta Cryst. C — 1995</span><br>
+            <span class="smallmeta">DOI: 10.1107/S0108270195008341</span>
+          </li>
+
+          <!-- 80 -->
+          <li>
+            <strong>Crystal and Molecular Structure of Tosyl Pyrrolidile 2 Methanol.</strong><br>
+            <span class="smallmeta">Crystal Research & Technology — 1995</span>
+          </li>
+
+          <!-- 81 -->
+          <li>
+            <strong>Crystal structure of a Furo-[3,2-g]-[1]-Benzopyran-7-one Derivative.</strong><br>
+            <span class="smallmeta">Crystal Research & Technology — 1995</span>
+          </li>
+
+          <!-- 82 -->
+          <li>
+            <strong>Crystal Structure of a Dehydroabietate Derivative.</strong><br>
+            <span class="smallmeta">Crystal Research & Technology — 1995</span>
+          </li>
+
+          <!-- 83 -->
+          <li>
+            <strong>Growth and Characterization of Tin Diselenide Telluride (SnSe₂Te) Thin Films — (earlier items recorded).</strong><br>
+            <span class="smallmeta">1994–1995 entries — various crystallography & materials papers.</span>
+          </li>
+
+          <!-- 84 -->
+          <li>
+            <strong>Crystal and Molecular Structure of (22R) 2b,3b,4,20,25 Hexahydroxy Cholest 7 en 6 one.</strong><br>
+            <span class="smallmeta">Zeitschrift für Kristallographie — 1994</span>
+          </li>
+        
+      </div>
+    </section>
+
+    <!-- Books & Chapters -->
+    <section class="glass p-6">
+      <h2 class="text-lg font-semibold">Book & Book Chapters</h2>
+      <ul class="list-disc pl-5 mt-3 smallmeta">
+        <li><strong>Book:</strong> <em>CuInAlSe₂: Formation, Characterization and Current Transport</em>, Lambert Academic Publishing (2014). ISBN: 978-3-639-71318-3.</li>
+        <li><strong>Book Chapters (2):</strong> in <em>Solar Cells and Their Applications</em>, Springer Nature (2025) — “Physics of Semiconductor Materials” and “Photonic Semiconductor Devices”.</li>
+      </ul>
+    </section>
+
+    <footer class="text-center text-xs text-slate-500 mt-6">
+      © 2025 Prof. Naresh Padha — Department of Physics, University of Jammu.  
+      <div class="mt-2"><a href="index.html" class="toplink">Back to CV</a></div>
+    </footer>
+  </main>
+
+  <script>
+(function(){
+  const nav = document.getElementById('stickyNav');
+  const hero = document.querySelector('header');
+  if(!nav || !hero) return;
+  
+  function updateNav(){
+    const rect = hero.getBoundingClientRect();
+    if(rect.bottom < 60){
+      nav.style.opacity = '1';
+      nav.style.pointerEvents = 'auto';
+      nav.style.transform = 'translateX(-50%) scale(1)';
+    } else {
+      nav.style.opacity = '0';
+      nav.style.pointerEvents = 'none';
+      nav.style.transform = 'translateX(-50%) scale(0.95)';
+    }
+  }
+  
+  window.addEventListener('scroll', updateNav, {passive:true});
+  window.addEventListener('resize', updateNav);
+  updateNav();
+})();
+</script>
+
+</body>
+</html>
